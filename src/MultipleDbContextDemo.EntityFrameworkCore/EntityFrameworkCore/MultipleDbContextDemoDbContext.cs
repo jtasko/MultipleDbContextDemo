@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MultipleDbContextDemo.TestSqlServerEntities;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -37,6 +39,7 @@ public class MultipleDbContextDemoDbContext :
      * More info: Replacing a DbContext of a module ensures that the related module
      * uses this DbContext on runtime. Otherwise, it will use its own DbContext class.
      */
+    public DbSet<TestSqlServerEntity> TestSqlServerEntities { get; set; }
 
     //Identity
     public DbSet<IdentityUser> Users { get; set; }
@@ -81,5 +84,11 @@ public class MultipleDbContextDemoDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+        builder.Entity<TestSqlServerEntity>(b =>
+        {
+            b.ToTable(MultipleDbContextDemoConsts.DbTablePrefix + "TestSqlServerEntities", MultipleDbContextDemoConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Name).HasColumnName(nameof(TestSqlServerEntity.Name));
+        });
     }
 }

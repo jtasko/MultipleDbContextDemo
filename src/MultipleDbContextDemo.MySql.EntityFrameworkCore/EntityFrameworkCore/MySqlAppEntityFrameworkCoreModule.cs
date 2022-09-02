@@ -1,10 +1,10 @@
-﻿using System;
+using EfCoreMultiContextApp.MySql.TestMySqlEntities;
 using Microsoft.Extensions.DependencyInjection;
-using MultipleDbContextDemo.TestSqlServerEntities;
+using MultipleDbContextDemo.MySql.TestMySqlEntities;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.SqlServer;
+using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.IdentityServer.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
-namespace MultipleDbContextDemo.EntityFrameworkCore;
+namespace MultipleDbContextDemo.MySql.EntityFrameworkCore;
 
 [DependsOn(
     typeof(MultipleDbContextDemoDomainModule),
@@ -21,35 +21,34 @@ namespace MultipleDbContextDemo.EntityFrameworkCore;
     typeof(AbpIdentityServerEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
-    typeof(AbpEntityFrameworkCoreSqlServerModule),
+    typeof(AbpEntityFrameworkCoreMySQLModule),
     typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
-public class MultipleDbContextDemoEntityFrameworkCoreModule : AbpModule
+public class MySqlAppEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        MultipleDbContextDemoEfCoreEntityExtensionMappings.Configure();
+        MySqlAppEfCoreEntityExtensionMappings.Configure();
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddAbpDbContext<MultipleDbContextDemoDbContext>(options =>
+        context.Services.AddAbpDbContext<MySqlAppDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
-            options.AddDefaultRepositories(includeAllEntities: true);
-            options.AddRepository<TestSqlServerEntity, TestSqlServerEntities.EfCoreTestSqlServerEntityRepository>();
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
+            options.AddRepository<TestMySqlEntity, EfCoreTestMySqlEntityRepository>();
+
         });
 
         Configure<AbpDbContextOptions>(options =>
         {
-                /* The main point to change your DBMS.
-                 * See also MultipleDbContextDemoMigrationsDbContextFactory for EF Core tooling. */
-            options.UseSqlServer();
-            
+            /* The main point to change your DBMS.
+             * See also MultipleDbContextDemoDbContextFactory for EF Core tooling. */
+            options.UseMySQL();
         });
     }
 }

@@ -1,0 +1,13 @@
+namespace MultipleDbContextDemo.TestSqlServerEntities
+{
+    public static class TestSqlServerEntityConsts
+    {
+        private const string DefaultSorting = "{0}Name asc";
+
+        public static string GetDefaultSorting(bool withEntityName)
+        {
+            return string.Format(DefaultSorting, withEntityName ? "TestSqlServerEntity." : string.Empty);
+        }
+
+    }
+}

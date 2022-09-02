@@ -45,5 +45,21 @@ public class MultipleDbContextDemoMenuContributor : IMenuContributor
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                MultipleDbContextDemoMenus.TestSqlServerEntities,
+                l["Menu:TestSqlServerEntities"],
+                url: "/TestSqlServerEntities",
+                icon: "fa fa-file-alt")
+        );
+
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                MultipleDbContextDemoMenus.TestMySqlEntities,
+                l["Menu:TestMySqlEntities"],
+                url: "/TestMySqlEntities",
+                icon: "fa fa-file-alt")
+        );
     }
 }

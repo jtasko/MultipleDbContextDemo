@@ -38,14 +38,14 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
-using MultipleDbContextDemo.MongoDb;
+using MultipleDbContextDemo.MySql.EntityFrameworkCore;
 
 namespace MultipleDbContextDemo.Web;
-[DependsOn(typeof(MultipleDbContextDemoMongoDbModule))]
+[DependsOn(typeof(MySqlAppEntityFrameworkCoreModule))] /* If this is first dependson, the MySQL EF Core uses SQL Server Driver and fails */
 [DependsOn(
     typeof(MultipleDbContextDemoHttpApiModule),
     typeof(MultipleDbContextDemoApplicationModule),
-    typeof(MultipleDbContextDemoEntityFrameworkCoreModule),
+    typeof(MultipleDbContextDemoEntityFrameworkCoreModule), /* If this is first dependson, the SQL Server EFCore uses MySQL driver and fails */
     typeof(AbpAutofacModule),
     typeof(AbpIdentityWebModule),
     typeof(AbpSettingManagementWebModule),
@@ -56,6 +56,7 @@ namespace MultipleDbContextDemo.Web;
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
     )]
+
 public class MultipleDbContextDemoWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

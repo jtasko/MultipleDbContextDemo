@@ -22,6 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\TestMySqlEntities\CreateModal.cshtml" />
+    <None Include="Pages\TestMySqlEntities\EditModal.cshtml" />
+    <None Include="Pages\TestMySqlEntities\Index.cshtml" />
+    <None Include="Pages\TestSqlServerEntities\CreateModal.cshtml" />
+    <None Include="Pages\TestSqlServerEntities\EditModal.cshtml" />
+    <None Include="Pages\TestSqlServerEntities\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Pages\**\*.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -39,6 +48,7 @@
     <ProjectReference Include="..\MultipleDbContextDemo.Application\MultipleDbContextDemo.Application.csproj" />
     <ProjectReference Include="..\MultipleDbContextDemo.HttpApi\MultipleDbContextDemo.HttpApi.csproj" />
     <ProjectReference Include="..\MultipleDbContextDemo.EntityFrameworkCore\MultipleDbContextDemo.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\MultipleDbContextDemo.MySql.EntityFrameworkCore\MultipleDbContextDemo.MySql.EntityFrameworkCore.csproj" />
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="5.3.4" />
     <PackageReference Include="Volo.Abp.Autofac" Version="5.3.4" />
     <PackageReference Include="Volo.Abp.Swashbuckle" Version="5.3.4" />
@@ -49,9 +59,5 @@
     <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="5.3.4" />
     <PackageReference Include="Volo.Abp.SettingManagement.Web" Version="5.3.4" />
   </ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\MultipleDbContextDemo.MongoDb\MultipleDbContextDemo.MongoDB.csproj" />
-	</ItemGroup>
 
 </Project>

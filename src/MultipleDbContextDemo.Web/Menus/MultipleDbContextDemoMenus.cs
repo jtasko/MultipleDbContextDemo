@@ -7,4 +7,7 @@ public class MultipleDbContextDemoMenus
 
     //Add your menu items here...
 
+    public const string TestSqlServerEntities = Prefix + ".TestSqlServerEntities";
+
+    public const string TestMySqlEntities = Prefix + ".TestMySqlEntities";
 }
