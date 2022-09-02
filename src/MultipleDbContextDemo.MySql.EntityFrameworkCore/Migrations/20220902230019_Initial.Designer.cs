@@ -12,8 +12,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace MultipleDbContextDemo.MySql.Migrations
 {
     [DbContext(typeof(MySqlAppDbContext))]
-    [Migration("20220902173215_Intial")]
-    partial class Intial
+    [Migration("20220902230019_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

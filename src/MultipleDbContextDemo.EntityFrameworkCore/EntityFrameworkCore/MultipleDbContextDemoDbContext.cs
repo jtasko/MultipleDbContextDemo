@@ -17,8 +17,6 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
 namespace MultipleDbContextDemo.EntityFrameworkCore;
 
-[ReplaceDbContext(typeof(IIdentityDbContext))]
-[ReplaceDbContext(typeof(ITenantManagementDbContext))]
 [ConnectionStringName("Default")]
 public class MultipleDbContextDemoDbContext :
     AbpDbContext<MultipleDbContextDemoDbContext>,

@@ -14,7 +14,6 @@ public class MySqlAppDbContext : AbpDbContext<MySqlAppDbContext>
     public MySqlAppDbContext(DbContextOptions<MySqlAppDbContext> options)
         : base(options)
     {
-
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
