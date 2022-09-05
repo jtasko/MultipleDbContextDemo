@@ -48,8 +48,7 @@ public class MultipleDbContextDemoEntityFrameworkCoreModule : AbpModule
         {
                 /* The main point to change your DBMS.
                  * See also MultipleDbContextDemoMigrationsDbContextFactory for EF Core tooling. */
-            options.UseSqlServer();
-            
+            options.UseSqlServer(); // Default dbcontext
         });
     }
 }

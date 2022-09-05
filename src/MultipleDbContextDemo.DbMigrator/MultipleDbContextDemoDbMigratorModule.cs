@@ -6,11 +6,12 @@ using Volo.Abp.Modularity;
 
 namespace MultipleDbContextDemo.DbMigrator;
 
-[DependsOn(typeof(MySqlAppEntityFrameworkCoreModule))]
 [DependsOn(
     typeof(AbpAutofacModule),
+    typeof(MySqlAppEntityFrameworkCoreModule),
     typeof(MultipleDbContextDemoEntityFrameworkCoreModule),
     typeof(MultipleDbContextDemoApplicationContractsModule)
+    
     )]
 
 public class MultipleDbContextDemoDbMigratorModule : AbpModule

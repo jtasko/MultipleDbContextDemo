@@ -17,11 +17,11 @@ namespace MultipleDbContextDemo.MySql.EntityFrameworkCore;
 
 [DependsOn(
     typeof(MultipleDbContextDemoDomainModule),
+    typeof(AbpEntityFrameworkCoreMySQLModule),
     typeof(AbpIdentityEntityFrameworkCoreModule),
     typeof(AbpIdentityServerEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
-    typeof(AbpEntityFrameworkCoreMySQLModule),
     typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
@@ -48,7 +48,10 @@ public class MySqlAppEntityFrameworkCoreModule : AbpModule
         {
             /* The main point to change your DBMS.
              * See also MultipleDbContextDemoDbContextFactory for EF Core tooling. */
-            options.UseMySQL();
+            options.Configure<MySqlAppDbContext>(opt =>
+            {
+                opt.UseMySQL();
+            });
         });
     }
 }
