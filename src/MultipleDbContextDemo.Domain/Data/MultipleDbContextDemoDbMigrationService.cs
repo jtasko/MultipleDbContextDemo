@@ -127,15 +127,14 @@ public class MultipleDbContextDemoDbMigrationService : ITransientDependency
                 AddInitialMigration();
                 return true;
             }
-            else if (!MySqlMigrationFolderExists())
+
+            if (!MySqlMigrationFolderExists())
             {
                 AddMySqlInitialMigration();
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
         catch (Exception e)
         {
