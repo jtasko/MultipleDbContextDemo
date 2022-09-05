@@ -8,9 +8,10 @@ namespace MultipleDbContextDemo.DbMigrator;
 
 [DependsOn(
     typeof(AbpAutofacModule),
+    typeof(MySqlAppEntityFrameworkCoreModule),
     typeof(MultipleDbContextDemoEntityFrameworkCoreModule),
-    typeof(MultipleDbContextDemoApplicationContractsModule),
-    typeof(MySqlAppEntityFrameworkCoreModule)
+    typeof(MultipleDbContextDemoApplicationContractsModule)
+    
     )]
 
 public class MultipleDbContextDemoDbMigratorModule : AbpModule

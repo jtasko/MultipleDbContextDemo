@@ -127,6 +127,11 @@ public class MultipleDbContextDemoDbMigrationService : ITransientDependency
                 AddInitialMigration();
                 return true;
             }
+            else if (!MySqlMigrationFolderExists())
+            {
+                AddMySqlInitialMigration();
+                return true;
+            }
             else
             {
                 return false;
@@ -139,6 +144,7 @@ public class MultipleDbContextDemoDbMigrationService : ITransientDependency
         }
     }
 
+
     private bool DbMigrationsProjectExists()
     {
         var dbMigrationsProjectFolder = GetEntityFrameworkCoreProjectFolderPath();
@@ -149,6 +155,12 @@ public class MultipleDbContextDemoDbMigrationService : ITransientDependency
     private bool MigrationsFolderExists()
     {
         var dbMigrationsProjectFolder = GetEntityFrameworkCoreProjectFolderPath();
+
+        return Directory.Exists(Path.Combine(dbMigrationsProjectFolder, "Migrations"));
+    }
+    private bool MySqlMigrationFolderExists()
+    {
+        var dbMigrationsProjectFolder = GetMySqlEntityFrameworkCoreProjectFolderPath();
 
         return Directory.Exists(Path.Combine(dbMigrationsProjectFolder, "Migrations"));
     }
@@ -184,6 +196,37 @@ public class MultipleDbContextDemoDbMigrationService : ITransientDependency
             throw new Exception("Couldn't run ABP CLI...");
         }
     }
+    private void AddMySqlInitialMigration()
+    {
+        Logger.LogInformation("Creating initial migration...");
+
+        string argumentPrefix;
+        string fileName;
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            argumentPrefix = "-c";
+            fileName = "/bin/bash";
+        }
+        else
+        {
+            argumentPrefix = "/C";
+            fileName = "cmd.exe";
+        }
+
+        var procStartInfo = new ProcessStartInfo(fileName,
+            $"{argumentPrefix} \"abp create-migration-and-run-migrator \"{GetMySqlEntityFrameworkCoreProjectFolderPath()}\"\""
+        );
+
+        try
+        {
+            Process.Start(procStartInfo);
+        }
+        catch (Exception)
+        {
+            throw new Exception("Couldn't run ABP CLI...");
+        }
+    }
 
     private string GetEntityFrameworkCoreProjectFolderPath()
     {
@@ -198,6 +241,21 @@ public class MultipleDbContextDemoDbMigrationService : ITransientDependency
 
         return Directory.GetDirectories(srcDirectoryPath)
             .FirstOrDefault(d => d.EndsWith(".EntityFrameworkCore"));
+    }
+    
+    private string GetMySqlEntityFrameworkCoreProjectFolderPath()
+    {
+        var slnDirectoryPath = GetSolutionDirectoryPath();
+
+        if (slnDirectoryPath == null)
+        {
+            throw new Exception("Solution folder not found!");
+        }
+
+        var srcDirectoryPath = Path.Combine(slnDirectoryPath, "src");
+        
+        return Directory.GetDirectories(srcDirectoryPath)
+            .FirstOrDefault(d => d.Contains("MySql.EntityFrameworkCore"));
     }
 
     private string GetSolutionDirectoryPath()
