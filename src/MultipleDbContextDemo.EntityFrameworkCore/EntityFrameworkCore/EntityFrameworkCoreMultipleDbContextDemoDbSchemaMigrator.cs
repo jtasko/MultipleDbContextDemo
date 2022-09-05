@@ -7,8 +7,8 @@ using Volo.Abp.DependencyInjection;
 
 namespace MultipleDbContextDemo.EntityFrameworkCore;
 
-public class EntityFrameworkCoreMultipleDbContextDemoDbSchemaMigrator
-    : IMultipleDbContextDemoDbSchemaMigrator, ITransientDependency
+[ExposeServices(typeof(IMultipleDbContextDemoDbSchemaMigrator), typeof(EntityFrameworkCoreMultipleDbContextDemoDbSchemaMigrator))]
+public class EntityFrameworkCoreMultipleDbContextDemoDbSchemaMigrator : IMultipleDbContextDemoDbSchemaMigrator, ITransientDependency
 {
     private readonly IServiceProvider _serviceProvider;
 

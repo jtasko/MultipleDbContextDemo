@@ -7,8 +7,8 @@ using Volo.Abp.DependencyInjection;
 
 namespace MultipleDbContextDemo.MySql.EntityFrameworkCore;
 
-public class MySqlAppDbSchemaMigrator
-    : IMultipleDbContextDemoDbSchemaMigrator, ITransientDependency
+[ExposeServices(typeof(IMultipleDbContextDemoDbSchemaMigrator), typeof(MySqlAppDbSchemaMigrator))]
+public class MySqlAppDbSchemaMigrator : IMultipleDbContextDemoDbSchemaMigrator, ITransientDependency
 {
     private readonly IServiceProvider _serviceProvider;
 
